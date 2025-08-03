@@ -1,0 +1,20 @@
+# Ignore virtual environment directories
+venv/
+env/
+.venv/
+.vscode/
+# Ignore environment variable files
+.env
+video/
+
+# Bytecode and cache files
+__pycache__/
+*.py[cod]
+
+# Other common Python ignores
+*.egg-info/
+dist/
+build/
+
+.streamlit/secrets.toml
+.streamlit
