@@ -9,7 +9,7 @@ from typing import Dict, Any
 from utils.together_client import TogetherClient
 
 # --- Configuration ---
-TOGETHER_MODEL = "mistralai/Mistral-7B-Instruct-v0.1"
+TOGETHER_MODEL = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
 
 # --- API Clients ---
 class TogetherClientWrapper:

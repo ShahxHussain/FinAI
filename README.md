@@ -10,6 +10,9 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.46+-red.svg)](https://streamlit.io)
 [![Together.ai](https://img.shields.io/badge/Together.ai-API-green.svg)](https://together.ai)
 [![Snowflake](https://img.shields.io/badge/Snowflake-Database-orange.svg)](https://snowflake.com)
+[![Llama](https://img.shields.io/badge/Llama-3.3--70B-purple.svg)](https://together.ai)
+
+
 
 *Transform your personal finance management with AI-powered insights and automation*
 
@@ -163,15 +166,9 @@ Built with modern technologies including Together.ai, Snowflake, and Streamlit, 
 - 📈 Compound interest projections
 - 📊 Financial snapshot and position analysis
 
-## 🛠️ Technology Stack
 
-### AI Core
-| Technology | Purpose |
-|------------|---------|
-| **Together.ai** | Unified AI platform for document processing, financial analysis, investment recommendations, and tax optimization |
-| **Cursor** | Prompt-to-code for UI generation and dashboard components |
+> *This architecture provides a comprehensive view of the FinAI system's structure, showing how all components interact to deliver AI-powered financial management capabilities.*
 
-### Application Stack
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -243,17 +240,57 @@ sequenceDiagram
     AL-->>UI: Display Tax Guidance
     UI-->>U: Show Tax Optimization
 ```
-> *This architecture provides a comprehensive view of the FinAI system's structure, showing how all components interact to deliver AI-powered financial management capabilities.*
+## 🛠️ Technology Stack
 
-### Core Dependencies
-- **Streamlit** - Web application framework
-- **Together.ai** - AI document processing and analysis
-- **Snowflake** - Cloud data warehouse
-- **Pandas** - Data manipulation and analysis
-- **Plotly** - Interactive visualizations
-- **PyPDF2** - PDF text extraction
-- **Pillow** - Image processing
-- **Pytesseract** - OCR for image text extraction
+### AI Core
+
+#### Model: Llama-3.3-70B-Instruct-Turbo-Free
+```yaml
+Model: meta-llama/Llama-3.3-70B-Instruct-Turbo-Free
+Provider: Together.ai
+Type: Large Language Model
+Usage: For document processing, financial analysis, investment recommendations, and tax optimization
+```
+#### Model Capabilities
+- **Document Processing**: Receipt analysis, text extraction, data validation
+- **Financial Analysis**: Investment recommendations, market analysis
+- **Tax Optimization**: Compliance guidance, deduction identification
+- **Natural Language Understanding**: Conversational AI for user queries
+- **Structured Output**: JSON generation for data extraction
+
+### Backend & Frontend
+```yaml
+Python 3.8+
+Web Framework: Streamlit 1.46+
+Architecture: Event-driven, Component-based
+```
+
+
+
+#### Data Processing
+```yaml
+Pandas: Data manipulation and analysis
+NumPy: Numerical computing
+PyPDF2: PDF text extraction
+Pillow: Image processing
+Pytesseract: OCR for image text extraction
+```
+
+#### Visualization & UI
+```yaml
+Streamlit: Web application framework
+Plotly: Interactive visualizations
+Matplotlib: Static plotting
+Seaborn: Statistical visualizations
+```
+
+#### Database & Storage
+```yaml
+Snowflake: Cloud data warehouse
+SQLAlchemy: Database ORM
+PyArrow: Data serialization
+```
+---
 
 ## 🎯 How Can You Use This & Where?
 
@@ -502,12 +539,6 @@ SNOWFLAKE_SCHEMA = "FINAI_SCHEMA"
 - Supported formats: `YYYY-MM-DD`, `DD-MMM-YYYY`, `DD/MM/YYYY`, `MM/DD/YYYY`, `YYYY/MM/DD`
 - If date parsing fails, the system defaults to current date
 
-#### Form Submission Issues
-**Error: "Missing Submit Button"**
-- ✅ **Fixed**: All forms now include proper submit buttons
-- Single document processing: "Save Transaction" button
-- Bulk processing: "Update Document #X" buttons
-- Income management: "Record Income" button
 
 #### Snowflake Connection Problems
 **Error: "Failed to initialize database"**
