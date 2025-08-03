@@ -173,16 +173,77 @@ Built with modern technologies including Together.ai, Snowflake, and Streamlit, 
 
 ### Application Stack
 ```mermaid
-graph TD
-    A[Streamlit UI] --> B[Python Backend]
-    B --> C{Upload datasets}
-    B --> D{Together.ai API}
-    B --> E[Together.ai Models]
-    C --> G[Receipt Processing]
-    D --> H[Financial Analysis]
-    E --> I[Investments Advice]
-    E --> J[Tax Optimization]
+sequenceDiagram
+    participant U as User
+    participant UI as Streamlit UI
+    participant AL as Application Layer
+    participant BL as Business Logic
+    participant AI as AI Services
+    participant DB as Snowflake DB
+    participant API as External APIs
+
+    %% Receipt Processing Flow
+    U->>UI: Upload Receipt
+    UI->>AL: Process Receipt Request
+    AL->>AI: Extract Data from Receipt
+    AI->>API: Together.ai API Call
+    API-->>AI: Extracted Data
+    AI-->>AL: Structured Receipt Data
+    AL->>BL: Validate & Process Data
+    BL->>DB: Store Transaction
+    DB-->>BL: Transaction ID
+    BL-->>AL: Success Response
+    AL-->>UI: Display Results
+    UI-->>U: Show Processed Receipt
+
+    %% Income Management Flow
+    U->>UI: Enter Income Data
+    UI->>AL: Submit Income Form
+    AL->>BL: Validate Income Data
+    BL->>DB: Store Income Record
+    DB-->>BL: Income ID
+    BL-->>AL: Success Response
+    AL-->>UI: Update Income History
+    UI-->>U: Show Updated Income
+
+    %% Financial Reporting Flow
+    U->>UI: Request Financial Report
+    UI->>AL: Generate Report Request
+    AL->>BL: Get Financial Data
+    BL->>DB: Query Transactions & Income
+    DB-->>BL: Financial Data
+    BL->>BL: Calculate Analytics
+    BL-->>AL: Report Data
+    AL-->>UI: Display Interactive Charts
+    UI-->>U: Show Financial Report
+
+    %% Investment Analysis Flow
+    U->>UI: Enter Stock Symbol
+    UI->>AL: Analyze Stock Request
+    AL->>AI: Generate Market Analysis
+    AI->>API: Together.ai API Call
+    API-->>AI: Market Intelligence
+    AI-->>AL: Investment Analysis
+    AL->>BL: Process Analysis
+    BL-->>AL: Investment Recommendations
+    AL-->>UI: Display Analysis
+    UI-->>U: Show Investment Advice
+
+    %% Tax Optimization Flow
+    U->>UI: Ask Tax Question
+    UI->>AL: Process Tax Query
+    AL->>AI: Generate Tax Advice
+    AI->>API: Together.ai API Call
+    API-->>AI: Compliance Information
+    AI-->>AL: Tax Advice
+    AL->>BL: Process Tax Data
+    BL->>DB: Query Tax-Related Data
+    DB-->>BL: Tax Information
+    BL-->>AL: Comprehensive Tax Advice
+    AL-->>UI: Display Tax Guidance
+    UI-->>U: Show Tax Optimization
 ```
+> *This architecture provides a comprehensive view of the FinAI system's structure, showing how all components interact to deliver AI-powered financial management capabilities.*
 
 ### Core Dependencies
 - **Streamlit** - Web application framework
@@ -294,24 +355,6 @@ graph TD
 - **Sustainability**: Promotes digital-first financial management
 - **Efficiency**: Streamlines document management processes
 
-#### Resource Optimization
-- **Energy Efficiency**: Cloud-based processing reduces local computing requirements
-- **Waste Reduction**: Digital workflows minimize physical resource consumption
-- **Scalability**: Efficient resource utilization through AI optimization
-
-### 🔮 **Future Impact**
-
-#### Technology Advancement
-- **AI Integration**: Paves the way for more sophisticated AI applications in finance
-- **Automation**: Sets standards for financial process automation
-- **Innovation**: Drives development of new financial technologies
-- **Standardization**: Establishes best practices for AI-powered financial tools
-
-#### Market Transformation
-- **Industry Disruption**: Challenges traditional financial management approaches
-- **Competitive Advantage**: Provides early adopters with significant advantages
-- **Market Evolution**: Drives evolution of financial services industry
-- **Global Reach**: Enables financial management across geographic boundaries
 
 ### 📊 **Quantified Benefits**
 
@@ -334,7 +377,7 @@ graph TD
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/finai.git
+git clone https://github.com/shahxhussain/finai.git
 cd finai
 ```
 
@@ -595,8 +638,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/finai/issues)
-- **Documentation**: [Wiki](https://github.com/yourusername/finai/wiki)
+- **Issues**: [GitHub Issues](https://github.com/shahxhussain/finai/issues)
+- **Documentation**: [Wiki](https://github.com/shahxhussain/finai/wiki)
 - **Email**: support@finai.com
 
 ---
@@ -605,8 +648,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ by the FinAI Team[ShahxHussain(https://www.linkedin.com/in/shahxhussain/)]**
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/finai?style=social)](https://github.com/yourusername/finai)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/finai?style=social)](https://github.com/yourusername/finai)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/finai)](https://github.com/yourusername/finai/issues)
+[![GitHub stars](https://img.shields.io/github/stars/shahxhussain/finai?style=social)](https://github.com/shahxhussain/finai)
+[![GitHub forks](https://img.shields.io/github/forks/shahxhussain/finai?style=social)](https://github.com/shahxhussain/finai)
+[![GitHub issues](https://img.shields.io/github/issues/shahxhussain/finai)](https://github.com/shahxhussain/finai/issues)
 
 </div>
