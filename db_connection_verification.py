@@ -3,9 +3,9 @@ import snowflake.connector
 
 try:
     conn = snowflake.connector.connect(
-        user='shahxhussain',
-        password='Snowflake#19288',
-        account='YNJBSER-EX11402',
+        user='your username here',
+        password='your password here',
+        account='account identifier here',
         warehouse='FINAI_WH',
         database='FINAI_DB',
         schema='FINAI_SCHEMA'

@@ -100,10 +100,10 @@ Built with modern technologies including Together.ai, Snowflake, and Streamlit, 
 
 ### 🧾 Tax Optimizer
 1. Go to "🧾 Tax Optimizer" tab
-2. View tax summary and deductible expenses
-3. Ask tax-related questions in the AI chat interface
-4. Get AI-powered tax advice and optimization suggestions
-5. Review compliance recommendations
+2. View tax summary and deductible expenses analysis
+3. Ask tax optimization questions using pre-defined options or custom queries
+4. Get AI-powered tax advice focused on maximizing deductions and compliance
+5. Review specialized guidance for freelancers, contractors, and small business owners
 
 ### 🎯 Wealth Builder
 1. Go to "🎯 Wealth Builder" tab
@@ -146,11 +146,12 @@ Built with modern technologies including Together.ai, Snowflake, and Streamlit, 
 - 📋 Category breakdown and expense tracking
 
 ### 🧾 Tax & Compliance
-- 🤖 AI-powered tax advice using Together.ai
-- 💡 Automatic deduction identification
+- 🤖 AI-powered tax optimization advice using Together.ai
+- 💡 Automatic deduction identification and categorization
 - 📅 Quarterly and annual tax liability calculations
-- ⚖️ GDPR and fintech regulation guidance
-- 💬 Interactive Q&A for tax questions
+- 🎯 Specialized guidance for freelancers, contractors, and small business owners
+- 💬 Interactive Q&A for tax optimization questions
+- 📊 Tax-deductible expense analysis and recommendations
 
 ### 💹 Investment Planning
 - 📈 Market intelligence with AI analysis
@@ -305,7 +306,7 @@ PyArrow: Data serialization
 #### Freelancers & Consultants
 - **Expense Tracking**: Automatically process client receipts and business expenses
 - **Income Management**: Track multiple income sources and payment methods
-- **Tax Compliance**: Ensure proper categorization for self-employment taxes
+- **Tax Optimization**: Maximize deductions for software, home office, and business expenses
 - **Financial Planning**: Plan for irregular income with AI-driven insights
 
 #### Startups & Entrepreneurs
@@ -319,7 +320,7 @@ PyArrow: Data serialization
 #### Individual Users
 - **Personal Finance Management**: Track daily expenses and income automatically
 - **Budget Planning**: Set financial goals and get AI-powered recommendations
-- **Tax Optimization**: Maximize tax deductions and minimize liabilities
+- **Tax Optimization**: Maximize tax deductions for home office, software, and business expenses
 - **Investment Planning**: Get personalized investment advice based on risk profile
 
 #### Families
@@ -361,7 +362,7 @@ PyArrow: Data serialization
 #### Cost Savings
 - **Time Reduction**: 80% reduction in manual receipt processing time
 - **Error Reduction**: 95% accuracy in expense categorization vs. manual entry
-- **Tax Optimization**: 15-25% potential increase in tax deductions identified
+- **Tax Optimization**: 15-25% potential increase in tax deductions identified through AI-powered analysis
 - **Operational Efficiency**: 60% reduction in financial data entry workload
 
 #### Revenue Generation

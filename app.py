@@ -12,6 +12,65 @@ from datetime import datetime
 import pandas as pd
 import numpy as np
 
+def map_category_to_predefined(category, predefined_categories):
+    """
+    Maps any category to the most relevant predefined category.
+    Uses keyword matching to find the best fit.
+    """
+    if not category:
+        return "Other"
+    
+    category_lower = category.lower()
+    
+    # Define mapping rules for common categories
+    category_mappings = {
+        # Meals & Food
+        "food": "Meals", "restaurant": "Meals", "dining": "Meals", "cafe": "Meals", 
+        "coffee": "Meals", "lunch": "Meals", "dinner": "Meals", "breakfast": "Meals",
+        "groceries": "Meals", "meal": "Meals", "catering": "Meals",
+        
+        # Travel
+        "travel": "Travel", "transport": "Travel", "uber": "Travel", "lyft": "Travel",
+        "taxi": "Travel", "flight": "Travel", "hotel": "Travel", "airbnb": "Travel",
+        "gas": "Travel", "fuel": "Travel", "parking": "Travel", "rental": "Travel",
+        "car": "Travel", "bus": "Travel", "train": "Travel", "subway": "Travel",
+        
+        # Office & Business
+        "office": "Office", "business": "Office", "work": "Office", "professional": "Office",
+        "meeting": "Office", "conference": "Office", "workspace": "Office", "coworking": "Office",
+        "equipment": "Office", "supplies": "Office", "stationery": "Office",
+        
+        # Software & Technology
+        "software": "Software", "cloud": "Software", "saas": "Software", "subscription": "Software",
+        "app": "Software", "platform": "Software", "service": "Software", "digital": "Software",
+        "online": "Software", "web": "Software", "internet": "Software", "hosting": "Software",
+        "domain": "Software", "website": "Software", "api": "Software", "tool": "Software",
+        "development": "Software", "programming": "Software", "tech": "Software",
+        
+        # Rent & Real Estate
+        "rent": "Rent", "lease": "Rent", "property": "Rent", "real estate": "Rent",
+        "apartment": "Rent", "house": "Rent", "accommodation": "Rent", "lodging": "Rent",
+        
+        # Utilities
+        "utility": "Utilities", "electricity": "Utilities", "water": "Utilities", 
+        "gas": "Utilities", "internet": "Utilities", "phone": "Utilities", 
+        "telephone": "Utilities", "mobile": "Utilities", "cable": "Utilities",
+        "tv": "Utilities", "television": "Utilities", "wifi": "Utilities",
+        "broadband": "Utilities", "energy": "Utilities", "power": "Utilities"
+    }
+    
+    # Check for exact matches first
+    for keyword, mapped_category in category_mappings.items():
+        if keyword in category_lower:
+            return mapped_category
+    
+    # Check if the category is already in predefined list
+    if category in predefined_categories:
+        return category
+    
+    # If no match found, return "Other"
+    return "Other"
+
 
 
 st.set_page_config(layout="wide", page_title="FinAI", page_icon="🧾")
@@ -30,11 +89,13 @@ st.markdown("""
     }
     
     .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
         padding: 1rem;
         border-radius: 10px;
-        color: white;
+        color: #333333;
         margin: 0.5rem 0;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     
     .stTabs [data-baseweb="tab-list"] {
@@ -75,6 +136,23 @@ st.markdown("""
         border-radius: 8px;
         margin: 1rem 0;
     }
+    
+    .save-form {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 2px solid #dee2e6;
+        margin: 1rem 0;
+    }
+    
+    .review-section {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1rem 0;
+        text-align: center;
+    }
 </style>
 """, unsafe_allow_html=True)
 # Initialize clients
@@ -96,8 +174,13 @@ if not initialize_database():
     
 
 
+# Initialize session state variables
 if 'form_submitted' not in st.session_state:
     st.session_state.form_submitted = False
+if 'bulk_processing' not in st.session_state:
+    st.session_state.bulk_processing = False
+if 'receipt_data' not in st.session_state:
+    st.session_state.receipt_data = None
 st.markdown('<div class="main-header"><h1>🚀 FinAI - Your AI-Powered Financial Companion</h1></div>', unsafe_allow_html=True)
 
 # Tab interface with updated names and styling
@@ -168,6 +251,7 @@ with tab1:
                         st.session_state.receipt_data = result
                         st.session_state.analysis_time = datetime.now()
                         st.session_state.bulk_processing = False
+                        st.session_state.form_submitted = False  # Reset form submission flag
                         st.rerun()
                         
                     except Exception as e:
@@ -265,12 +349,19 @@ with tab1:
                                     value=result['merchant']['value'],
                                     key=f"merchant_{i}"
                                 )
+                                # Map category to predefined list to avoid ValueError
+                                predefined_categories = ["Meals", "Travel", "Office", "Software", "Rent", "Utilities", "Other"]
+                                original_category = result['category']['value']
+                                mapped_category = map_category_to_predefined(original_category, predefined_categories)
+                                
+                                # Show info if category was mapped
+                                if original_category != mapped_category:
+                                    st.info(f"📝 Category '{original_category}' was automatically mapped to '{mapped_category}' for better organization.")
+                                
                                 category = st.selectbox(
                                     "Category",
-                                    options=["Meals", "Travel", "Office", "Software", "Rent", "Utilities", "Other"],
-                                    index=["Meals", "Travel", "Office", "Software", "Rent", "Utilities", "Other"].index(
-                                        result['category']['value']
-                                    ),
+                                    options=predefined_categories,
+                                    index=predefined_categories.index(mapped_category),
                                     key=f"category_{i}"
                                 )
                                 # Handle different date formats safely for bulk processing
@@ -308,56 +399,102 @@ with tab1:
     elif 'receipt_data' in st.session_state and not st.session_state.get('bulk_processing', True):
         # Single document processing results (existing code)
         st.subheader("✅ Document Analysis Results")
+        
+        # Safe data extraction with fallbacks
+        receipt_data = st.session_state.receipt_data
+        
+        # Helper function to safely get nested values
+        def safe_get(data, key, subkey=None, default=None):
+            try:
+                if subkey:
+                    return data.get(key, {}).get(subkey, default)
+                return data.get(key, default)
+            except:
+                return default
+        
+        # Extract values safely
+        amount_value = safe_get(receipt_data, 'amount', 'value', 0.0)
+        amount_confidence = safe_get(receipt_data, 'amount', 'confidence', 0.0)
+        merchant_value = safe_get(receipt_data, 'merchant', 'value', 'Unknown')
+        merchant_confidence = safe_get(receipt_data, 'merchant', 'confidence', 0.0)
+        category_value = safe_get(receipt_data, 'category', 'value', 'Other')
+        category_confidence = safe_get(receipt_data, 'category', 'confidence', 0.0)
+        date_value = safe_get(receipt_data, 'date', 'value', 'Not detected')
+        date_confidence = safe_get(receipt_data, 'date', 'confidence', 0.0)
+        
         with st.container():
             cols = st.columns(2)
             
             with cols[0]:
                 st.metric(
                     "Total Amount", 
-                    f"${st.session_state.receipt_data['amount']['value']:.2f}", 
-                    f"Confidence: {st.session_state.receipt_data['amount']['confidence']*100:.1f}%"
+                    f"${float(amount_value):.2f}" if amount_value else "$0.00", 
+                    f"Confidence: {float(amount_confidence)*100:.1f}%" if amount_confidence else "Confidence: 0.0%"
                 )
                 st.metric(
                     "Merchant",
-                    st.session_state.receipt_data['merchant']['value'],
-                    f"Confidence: {st.session_state.receipt_data['merchant']['confidence']*100:.1f}%"
+                    str(merchant_value),
+                    f"Confidence: {float(merchant_confidence)*100:.1f}%" if merchant_confidence else "Confidence: 0.0%"
                 )
             
             with cols[1]:
                 st.metric(
                     "Category",
-                    st.session_state.receipt_data['category']['value'],
-                    f"Confidence: {st.session_state.receipt_data['category']['confidence']*100:.1f}%"
+                    str(category_value),
+                    f"Confidence: {float(category_confidence)*100:.1f}%" if category_confidence else "Confidence: 0.0%"
                 )
                 st.metric(
                     "Date",
-                    st.session_state.receipt_data['date']['value'] or 'Not detected',
-                    f"Confidence: {st.session_state.receipt_data['date']['confidence']*100:.1f}%"
+                    str(date_value) if date_value else 'Not detected',
+                    f"Confidence: {float(date_confidence)*100:.1f}%" if date_confidence else "Confidence: 0.0%"
                 )
         
-        if st.session_state.receipt_data.get('line_items'):
+        line_items = safe_get(receipt_data, 'line_items', default=[])
+        if line_items and isinstance(line_items, list) and len(line_items) > 0:
             st.subheader("📝 Line Items")
-            line_items_df = pd.DataFrame(st.session_state.receipt_data['line_items'])
-            st.dataframe(
-                line_items_df,
-                column_config={
-                    "amount": st.column_config.NumberColumn(
-                        "Amount",
-                        format="$%.2f"
-                    )
-                },
-                hide_index=True,
-                use_container_width=True
-            )
+            try:
+                line_items_df = pd.DataFrame(line_items)
+                st.dataframe(
+                    line_items_df,
+                    column_config={
+                        "amount": st.column_config.NumberColumn(
+                            "Amount",
+                            format="$%.2f"
+                        )
+                    },
+                    hide_index=True,
+                    use_container_width=True
+                )
+            except Exception as e:
+                st.warning(f"⚠️ Could not display line items: {str(e)}")
+                st.json(line_items)
 
+        # Debug information (can be removed later)
+        with st.expander("🔧 Debug Information"):
+            st.write(f"Form submitted: {st.session_state.get('form_submitted', False)}")
+            st.write(f"Receipt data exists: {'receipt_data' in st.session_state}")
+            st.write(f"Bulk processing: {st.session_state.get('bulk_processing', False)}")
+            st.write("Extracted values:")
+            st.write(f"- Amount: {amount_value} (type: {type(amount_value)})")
+            st.write(f"- Merchant: {merchant_value} (type: {type(merchant_value)})")
+            st.write(f"- Category: {category_value} (type: {type(category_value)})")
+            st.write(f"- Date: {date_value} (type: {type(date_value)})")
+            st.write("Raw receipt data:")
+            st.json(receipt_data)
+        
         # Save to database section (existing code)
         if not st.session_state.form_submitted:
+            st.markdown("---")
+            st.markdown("## 💾 Review & Save Transaction")
+            st.info("📝 Review the extracted information below and save to your database.")
+            
+            st.markdown('<div class="save-form">', unsafe_allow_html=True)
             with st.form("save_transaction"):
-                st.subheader("💾 Save to Database")
+                st.subheader("🔍 Transaction Details")
 
                 amount = st.number_input(
                     "Amount",
-                    value=float(st.session_state.receipt_data['amount']['value']),
+                    value=float(amount_value) if amount_value else 0.0,
                     min_value=0.0,
                     step=0.01,
                     format="%.2f"
@@ -365,19 +502,26 @@ with tab1:
 
                 merchant = st.text_input(
                     "Merchant",
-                    value=st.session_state.receipt_data['merchant']['value']
+                    value=str(merchant_value) if merchant_value else ""
                 )
 
+                # Map category to predefined list to avoid ValueError
+                predefined_categories = ["Meals", "Travel", "Office", "Software", "Rent", "Utilities", "Other"]
+                original_category = str(category_value) if category_value else "Other"
+                mapped_category = map_category_to_predefined(original_category, predefined_categories)
+                
+                # Show info if category was mapped
+                if original_category != mapped_category:
+                    st.info(f"📝 Category '{original_category}' was automatically mapped to '{mapped_category}' for better organization.")
+                
                 category = st.selectbox(
                     "Category",
-                    options=["Meals", "Travel", "Office", "Software", "Rent", "Utilities", "Other"],
-                    index=["Meals", "Travel", "Office", "Software", "Rent", "Utilities", "Other"].index(
-                        st.session_state.receipt_data['category']['value']
-                    )
+                    options=predefined_categories,
+                    index=predefined_categories.index(mapped_category)
                 )
 
                 # Handle different date formats safely
-                date_value = st.session_state.receipt_data['date']['value']
+                date_value = str(date_value) if date_value else None
                 try:
                     if date_value:
                         # Try multiple date formats
@@ -400,23 +544,29 @@ with tab1:
                     value=parsed_date
                 )
 
-                submitted = st.form_submit_button("Save Transaction", type="primary")
+                st.markdown("---")
+                submitted = st.form_submit_button("💾 Save Transaction to Database", type="primary", use_container_width=True)
 
                 if submitted:
                     try:
-                        receipt_data = st.session_state.receipt_data.copy()
-                        receipt_data['amount']['value'] = amount
-                        receipt_data['merchant']['value'] = merchant
-                        receipt_data['category']['value'] = category
-                        receipt_data['date']['value'] = date.strftime('%Y-%m-%d')
+                        # Create a clean receipt data structure
+                        clean_receipt_data = {
+                            'amount': {'value': amount, 'confidence': amount_confidence},
+                            'merchant': {'value': merchant, 'confidence': merchant_confidence},
+                            'category': {'value': category, 'confidence': category_confidence},
+                            'date': {'value': date.strftime('%Y-%m-%d'), 'confidence': date_confidence},
+                            'line_items': line_items if line_items else []
+                        }
 
-                        transaction_id = transaction_manager.log_receipt(receipt_data)
+                        transaction_id = transaction_manager.log_receipt(clean_receipt_data)
 
                         st.session_state.form_submitted = True
                         st.session_state.last_transaction_id = transaction_id
                         st.rerun()
                     except Exception as e:
                         st.error(f"❌ Error saving transaction: {str(e)}")
+                        st.error("Please check your database connection and try again.")
+            st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.success(f"✅ Transaction {st.session_state.last_transaction_id} saved successfully!")
             if st.button("➕ New Transaction"):

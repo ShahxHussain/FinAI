@@ -1,0 +1,44 @@
+--------------------------------------------------------------
+CloudNova Solutions Ltd.
+https://cloudnova.tech
+
+Invoice Date:     03-Aug-2025
+Invoice Number:   CN-2025-0803-1287
+Billing Period:   01-Jul-2025 to 31-Jul-2025
+Customer ID:      77250931
+Account Name:     Vertex Dynamics
+--------------------------------------------------------------
+
+Service Details:
+--------------------------------------------------------------
+
+CloudNova Compute (CNC)
+  - c4.large x 2 Instances (Europe, 744 hrs)             $226.79
+
+CloudNova Storage (CNS)
+  - 1 TB Object Storage (Standard Tier)                  $35.00
+  - Bandwidth Usage (50 GB Outbound)                     $13.39
+
+CloudNova DB (CNDB)
+  - db.c5.medium PostgreSQL (Single-AZ, 744 hrs)         $152.14
+
+CloudNova AI Services (CNAI)
+  - LLM Inference API Requests (1,200 calls)             $21.43
+  - Vector DB Queries (15,000 ops)                       $11.43
+
+Support Plan: Developer Tier                             $4.29
+
+--------------------------------------------------------------
+Subtotal:                                                $464.47
+VAT (7.5%):                                              $34.83
+TOTAL:                                                  $499.30
+--------------------------------------------------------------
+
+Payment Method: Mastercard **** 6741  
+Transaction ID: CNINV9432085471PK
+
+For full breakdown and download options, visit:
+https://console.cloudnova.tech/billing
+
+Thank you for choosing CloudNova Solutions!
+--------------------------------------------------------------

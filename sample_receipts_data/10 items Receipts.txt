@@ -1,0 +1,62 @@
+--------------------------------------------
+CloudHost Pro Solutions  
+https://www.cloudhostpro.io  
+Invoice Date: 03-Aug-2025  
+Invoice #: CH-INV-8920342  
+Billing Period: 01-Jul-2025 to 31-Jul-2025  
+Customer: NextGenAI Solutions  
+Account ID: 76392018  
+--------------------------------------------
+
+Itemized Charges:
+--------------------------------------------
+Droplets (Compute Instances)
+ - 1x General Purpose (4GB / 2 vCPU / 80GB SSD)  
+   Region: London (LON1)                       $78.00
+
+Managed Databases
+ - MongoDB Cluster (3 Nodes, LON1)             $185.00
+
+Block Storage
+ - 200 GB Volume (LON1)                        $24.00
+
+Load Balancer
+ - Premium LB (HTTPS)                          $32.00
+
+App Platform
+ - Dynamic App (Pro Tier)                      $40.00
+
+Bandwidth
+ - Outbound: 100 GB                            $60.00
+
+Monitoring Services
+ - Server & App Metrics                        $20.00
+
+Object Storage
+ - 150 GB (S3 Compatible)                      $15.00
+
+Security
+ - Managed WAF                                 $30.00
+
+Backups
+ - Daily Snapshots (Compute + DB)              $28.00
+
+Support Plan
+ - 24/7 Premium Support                        $35.00
+
+CDN
+ - Global Edge CDN (300 GB usage)              $27.00
+
+--------------------------------------------
+Subtotal:                                     $574.00  
+VAT (8%):                                      $45.92  
+TOTAL AMOUNT:                                 $619.92  
+--------------------------------------------
+
+Paid via: Mastercard **** 9842  
+Transaction ID: CH-TXN-000789123  
+Payment Date: 03-Aug-2025
+
+Need help? Contact support@cloudhostpro.io  
+--------------------------------------------
+Thank you for hosting with CloudHost Pro!

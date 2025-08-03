@@ -45,7 +45,7 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
         }
         .kpi-title {
             font-size: 1rem;
-            color: white;
+            color: #2c3e50;
             margin-bottom: 5px;
             font-weight: 600;
         }

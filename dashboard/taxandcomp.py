@@ -16,15 +16,22 @@ class TaxComplianceAssistant:
         self.together_client = TogetherClient()
     
     def ask_compliance_question(self, question: str) -> str:
-        """Call Together.ai for compliance and tax advice"""
-        # Enhanced prompt for tax/compliance context
-        prompt = f"""You are a tax and financial compliance expert specializing in GDPR and fintech regulations. 
-    Provide detailed, accurate advice for the following question. Cite relevant regulations when possible.
+        """Call Together.ai for tax optimization and compliance advice"""
+        # Enhanced prompt for FinAI tax optimization context
+        prompt = f"""You are a tax optimization expert specializing in personal and business finance, 
+    particularly for freelancers, contractors, and small business owners using AI-powered financial tools.
+
+    Provide practical, actionable tax advice for the following question. Focus on:
+    - Maximizing legitimate tax deductions
+    - Proper expense categorization
+    - Tax-efficient business practices
+    - Compliance with current tax laws
+    - Best practices for financial record-keeping
 
     Question: {question}
 
-    Answer in clear, actionable terms suitable for a financial application user. 
-    If the question is ambiguous, ask clarifying questions."""
+    Answer in clear, actionable terms suitable for FinAI users managing their finances. 
+    Include specific examples and actionable steps when possible."""
 
         return self.together_client.generate_text(prompt, temperature=0.2, max_tokens=1000)
 
@@ -91,10 +98,14 @@ class ComplianceChatInterface:
     def display_common_questions(self):
         """Show pre-defined compliance questions"""
         common_questions = [
-            "What are the GDPR requirements for storing financial data?",
-            "How should I handle international transactions for tax purposes?",
-            "What receipts do I need to keep for tax deductions?",
-            "How long should I retain financial records under EU law?"
+            "How can I maximize tax deductions for my business expenses?",
+            "What expenses are deductible for freelancers and contractors?",
+            "How should I categorize software and technology expenses for tax purposes?",
+            "What tax benefits can I claim for home office and remote work?",
+            "How do I properly track and report income from multiple sources?",
+            "What are the tax implications of different business structures?",
+            "How can I optimize my tax strategy for investment income?",
+            "What records should I keep for tax audits and compliance?"
         ]
         
         selected_question = st.selectbox(
@@ -105,8 +116,8 @@ class ComplianceChatInterface:
     
     def process_user_question(self, question: str):
         """Handle user questions and display responses"""
-        if st.button("Ask Compliance Expert") and question:
-            with st.spinner("Consulting compliance experts..."):
+        if st.button("💡 Get Tax Optimization Advice") and question:
+            with st.spinner("🧠 Analyzing tax optimization strategies..."):
                 try:
                     assistant = TaxComplianceAssistant()
                     response = assistant.ask_compliance_question(question)
@@ -118,7 +129,7 @@ class ComplianceChatInterface:
                         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M")
                     })
                 except Exception as e:
-                    st.error(f"Failed to get compliance advice: {str(e)}")
+                    st.error(f"Failed to get tax optimization advice: {str(e)}")
     
     def display_chat_history(self):
         """Show previous Q&A"""
@@ -131,8 +142,8 @@ class ComplianceChatInterface:
                     # Disclaimer for all responses
                     if i == 0:  # Only show once
                         st.caption("""
-                        **Disclaimer**: These responses are AI-generated suggestions only. 
-                        For legally binding advice, please consult a qualified professional.
+                        **Disclaimer**: These responses are AI-generated tax optimization suggestions only. 
+                        For legally binding tax advice, please consult a qualified tax professional.
                         """)
 
 def tax_optimization_tab():
@@ -173,7 +184,7 @@ def tax_optimization_tab():
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.subheader("Tax Optimization Insights")
+        st.subheader("📊 Tax Optimization Insights")
         
         # Get financial data for the year
         report = TransactionManager.get_combined_financial_report('year')
@@ -183,7 +194,7 @@ def tax_optimization_tab():
         TaxOptimizationDashboard.display_tax_deductible_expenses(report)
     
     with col2:
-        st.subheader("Tax Compliance Assistant")
+        st.subheader("🎯 Tax Optimization Assistant")
         
         # Initialize and display chat interface
         chat_interface = ComplianceChatInterface()
