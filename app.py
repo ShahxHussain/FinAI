@@ -15,6 +15,68 @@ import numpy as np
 
 
 st.set_page_config(layout="wide", page_title="FinAI", page_icon="🧾")
+
+# Custom CSS for improved UI
+st.markdown("""
+<style>
+    /* Custom styling for better UI */
+    .main-header {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: white;
+    }
+    
+    .metric-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1rem;
+        border-radius: 10px;
+        color: white;
+        margin: 0.5rem 0;
+    }
+    
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background-color: #f0f2f6;
+        border-radius: 8px 8px 0 0;
+        padding: 10px 20px;
+        font-weight: 600;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background-color: #667eea;
+        color: white;
+    }
+    
+    .upload-section {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 2px dashed #dee2e6;
+    }
+    
+    .success-message {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1rem 0;
+    }
+    
+    .info-box {
+        background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1rem 0;
+    }
+</style>
+""", unsafe_allow_html=True)
 # Initialize clients
 together_client = TogetherClient()
 transaction_manager = TransactionManager()
@@ -36,37 +98,47 @@ if not initialize_database():
 
 if 'form_submitted' not in st.session_state:
     st.session_state.form_submitted = False
-st.title("📄 FinAI")
+st.markdown('<div class="main-header"><h1>🚀 FinAI - Your AI-Powered Financial Companion</h1></div>', unsafe_allow_html=True)
 
-# Tab interface
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["Upload Receipt", "Income Management","View Income and Expense", "Financial Reports", "Tax & Compliance", "Savings & Investing", "Investment Planning"])
+# Tab interface with updated names and styling
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    "📄 Smart Document Scanner", 
+    "💰 Revenue Tracker",
+    "📊 Transaction History", 
+    "📈 Financial Analytics", 
+    "🧾 Tax Optimizer", 
+    "🎯 Wealth Builder", 
+    "📈 Market Intelligence"
+])
 
 with tab1:
     # Create two columns for layout
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.header("🔍 Single Receipt Processing")
+        st.header("🔍 Intelligent Document Scanner")
         
         # Unified file uploader for single file
+        st.markdown('<div class="upload-section">', unsafe_allow_html=True)
         uploaded_file = st.file_uploader(
-            "Upload Receipt (PDF, csv or Text)",
+            "📄 Upload Financial Document (PDF, CSV, or Text)",
             type=["pdf","csv", "txt"],
-            help="Upload a receipt in any format",
+            help="Upload any financial document for AI analysis",
             key="single_upload"
         )
+        st.markdown('</div>', unsafe_allow_html=True)
         
         # Text fallback
         receipt_text = st.text_area(
-            "Or paste receipt text directly",
+            "📝 Or paste document text directly",
             height=200,
-            placeholder="Paste receipt text here...",
+            placeholder="Paste financial document text here...",
             key="single_text"
         )
         
-        if st.button("Process Receipt", type="primary", key="process_single"):
+        if st.button("🔍 Analyze Document", type="primary", key="process_single"):
             if uploaded_file or receipt_text:
-                with st.spinner("🧠 Analyzing receipt content..."):
+                with st.spinner("🧠 Analyzing document content..."):
                     try:
                         file_bytes = None
                         file_type = None
@@ -104,20 +176,20 @@ with tab1:
                 st.warning("Please upload a file or paste receipt text")
 
     with col2:
-        st.header("⚡ Bulk Receipt Processing")
+        st.header("⚡ Batch Document Processor")
         
         # Multi-file uploader
         bulk_files = st.file_uploader(
-            "Upload Multiple Receipts",
+            "Upload Multiple Documents",
             type=["pdf", "jpg", "jpeg", "png", "txt"],
             accept_multiple_files=True,
-            help="Upload multiple receipts at once",
+            help="Upload multiple financial documents at once",
             key="bulk_upload"
         )
         
-        if st.button("Process Multiple Receipts", type="primary", key="process_bulk"):
+        if st.button("Process Batch Documents", type="primary", key="process_bulk"):
             if bulk_files:
-                with st.spinner(f"🧠 Analyzing {len(bulk_files)} receipts..."):
+                with st.spinner(f"🧠 Analyzing {len(bulk_files)} documents..."):
                     try:
                         # Process files in bulk
                         files_to_process = []
@@ -140,7 +212,7 @@ with tab1:
 
     # Display results based on processing mode
     if st.session_state.get('bulk_processing', False) and 'bulk_results' in st.session_state:
-        st.subheader("📊 Bulk Processing Results")
+        st.subheader("📊 Batch Processing Results")
         
         # Create summary table
         summary_data = []
@@ -164,7 +236,7 @@ with tab1:
             use_container_width=True
         )
         
-        # Bulk save options
+        # Batch save options
         with st.expander("💾 Save All Transactions"):
             if st.button("Save All to Database", key="save_all_bulk"):
                 with st.spinner(f"Saving {len(st.session_state.bulk_results)} transactions..."):
@@ -184,7 +256,7 @@ with tab1:
                     with st.container(border=True):
                         cols = st.columns([1, 3])
                         with cols[0]:
-                            st.markdown(f"**Receipt #{i+1}**")
+                            st.markdown(f"**Document #{i+1}**")
                             st.metric("Amount", f"${result['amount']['value']:.2f}")
                         with cols[1]:
                             with st.form(f"edit_receipt_{i}"):
@@ -201,24 +273,41 @@ with tab1:
                                     ),
                                     key=f"category_{i}"
                                 )
+                                # Handle different date formats safely for bulk processing
+                                date_value = result['date']['value']
+                                try:
+                                    if date_value:
+                                        # Try multiple date formats
+                                        for fmt in ['%Y-%m-%d', '%d-%b-%Y', '%d/%m/%Y', '%m/%d/%Y', '%Y/%m/%d']:
+                                            try:
+                                                parsed_date = datetime.strptime(date_value, fmt).date()
+                                                break
+                                            except ValueError:
+                                                continue
+                                        else:
+                                            # If no format matches, use current date
+                                            parsed_date = datetime.now().date()
+                                    else:
+                                        parsed_date = datetime.now().date()
+                                except:
+                                    parsed_date = datetime.now().date()
+                                
                                 date = st.date_input(
                                     "Date",
-                                    value=datetime.strptime(
-                                        result['date']['value'], '%Y-%m-%d'
-                                    ).date() if result['date']['value'] else datetime.now().date(),
+                                    value=parsed_date,
                                     key=f"date_{i}"
                                 )
                                 
-                                if st.form_submit_button(f"Update Receipt #{i+1}"):
+                                if st.form_submit_button(f"Update Document #{i+1}"):
                                     st.session_state.bulk_results[i]['merchant']['value'] = merchant
                                     st.session_state.bulk_results[i]['category']['value'] = category
                                     st.session_state.bulk_results[i]['date']['value'] = date.strftime('%Y-%m-%d')
-                                    st.success(f"Receipt #{i+1} updated!")
+                                    st.success(f"Document #{i+1} updated!")
                                     st.rerun()
 
     elif 'receipt_data' in st.session_state and not st.session_state.get('bulk_processing', True):
-        # Single receipt processing results (existing code)
-        st.subheader("✅ Analysis Results")
+        # Single document processing results (existing code)
+        st.subheader("✅ Document Analysis Results")
         with st.container():
             cols = st.columns(2)
             
@@ -287,11 +376,28 @@ with tab1:
                     )
                 )
 
+                # Handle different date formats safely
+                date_value = st.session_state.receipt_data['date']['value']
+                try:
+                    if date_value:
+                        # Try multiple date formats
+                        for fmt in ['%Y-%m-%d', '%d-%b-%Y', '%d/%m/%Y', '%m/%d/%Y', '%Y/%m/%d']:
+                            try:
+                                parsed_date = datetime.strptime(date_value, fmt).date()
+                                break
+                            except ValueError:
+                                continue
+                        else:
+                            # If no format matches, use current date
+                            parsed_date = datetime.now().date()
+                    else:
+                        parsed_date = datetime.now().date()
+                except:
+                    parsed_date = datetime.now().date()
+                
                 date = st.date_input(
                     "Date",
-                    value=datetime.strptime(
-                        st.session_state.receipt_data['date']['value'], '%Y-%m-%d'
-                    ).date() if st.session_state.receipt_data['date']['value'] else datetime.now().date()
+                    value=parsed_date
                 )
 
                 submitted = st.form_submit_button("Save Transaction", type="primary")
@@ -319,7 +425,7 @@ with tab1:
                 del st.session_state.last_transaction_id
                 st.rerun()
 with tab2:
-    st.header("💰 Income Management")
+    st.header("💰 Revenue Tracker")
     
     # Income entry form
     with st.form("income_form"):
@@ -363,22 +469,22 @@ with tab2:
             except Exception as e:
                 st.error(f"Error recording income: {str(e)}")
     
-    # Income history and reports
-    st.subheader("Income History")
+    # Revenue history and reports
+    st.subheader("Revenue History")
     
     income_report = IncomeManager.get_income_report()
     if income_report:
         col1, col2 = st.columns(2)
         with col1:
-            st.metric("Total Income", f"${income_report['total_income']:,.2f}")
-            st.metric("Average Income", f"${income_report['average_income']:,.2f}")
+            st.metric("Total Revenue", f"${income_report['total_income']:,.2f}")
+            st.metric("Average Revenue", f"${income_report['average_income']:,.2f}")
         
         with col2:
-            st.write("**Top Income Sources**")
+            st.write("**Top Revenue Sources**")
             for source, amount in income_report['top_sources'].items():
                 st.write(f"- {source}: ${amount:,.2f}")
         
-        st.subheader("Monthly Income Trend")
+        st.subheader("Monthly Revenue Trend")
         monthly_df = pd.DataFrame.from_dict(
             income_report['income_by_month'],
             orient='index',
@@ -389,11 +495,11 @@ with tab2:
         st.info("No income records found")
         
 with tab3:
-    st.header("Expense and Income History")
+    st.header("📊 Transaction History")
     
     view_type = st.radio(
-        "View:",
-        options=["All", "Expenses Only", "Income Only"],
+        "Transaction Type:",
+        options=["All Transactions", "Expenses Only", "Revenue Only"],
         horizontal=True,
         key="transaction_view_type"
     )
@@ -432,9 +538,9 @@ with tab3:
 
         # Combine data based on view type
         dfs_to_combine = []
-        if view_type in ["All", "Expenses Only"] and not expenses_df.empty:
+        if view_type in ["All Transactions", "Expenses Only"] and not expenses_df.empty:
             dfs_to_combine.append(expenses_df)
-        if view_type in ["All", "Income Only"] and not income_df.empty:
+        if view_type in ["All Transactions", "Revenue Only"] and not income_df.empty:
             dfs_to_combine.append(income_df)
 
         if dfs_to_combine:
@@ -456,13 +562,13 @@ with tab3:
                     subset=['type']
                 ),
                 column_config={
-                    "date": st.column_config.DateColumn("Date"),
-                    "merchant": "Merchant/Source",
+                    "date": st.column_config.DateColumn("Transaction Date"),
+                    "merchant": "Merchant/Revenue Source",
                     "amount_display": st.column_config.NumberColumn(
                         "Amount",
                         format="$%.2f"
                     ),
-                    "type": "Type",
+                    "type": "Transaction Type",
                     "category": "Category"
                 },
                 hide_index=True,
@@ -479,10 +585,10 @@ with tab3:
     except Exception as e:
         st.error(f"Failed to load transactions: {str(e)}")
 with tab4:
-    st.header("📊 Comprehensive Financial Reports")   
+    st.header("📈 Financial Analytics")   
         # Time period selector
     time_period = st.selectbox(
-            "Select Time Period",
+            "Analytics Time Period",
             ["Week", "Month", "Quarter", "Year"],
             index=1
         )

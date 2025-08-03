@@ -89,14 +89,14 @@ class InvestmentAdvisor:
 
 # --- Main Tab Implementation ---
 def savings_and_investing_tab():
-    """Complete Savings & Investing dashboard tab"""
-    st.header("💰 AI-Powered Savings & Investing")
+    """Complete Wealth Builder dashboard tab"""
+    st.header("🎯 Wealth Builder")
     
     # Get financial snapshot
     snapshot = SavingsPlanner.get_financial_snapshot()
     
     # Tab layout
-    tab1, tab2, tab3 = st.tabs(["Savings Planner", "Investment Advisor", "Financial Health"])
+    tab1, tab2, tab3 = st.tabs(["🎯 Wealth Goals", "📈 Investment Strategy", "📊 Financial Projections"])
     
     with tab1:
         st.subheader("Personalized Savings Plan")

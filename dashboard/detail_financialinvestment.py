@@ -97,7 +97,7 @@ class MarketIntelligence:
         }
 # --- Streamlit UI ---
 def detail_investmentplan():
-    st.header("AI-Powered Market Analysis")
+    st.header("📈 Market Intelligence")
     symbol = st.text_input("Enter ticker symbol", "AAPL").upper()
     analysis_days = st.slider("Analysis period (days)", 7, 365, 30)
         

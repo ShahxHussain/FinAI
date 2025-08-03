@@ -41,6 +41,64 @@ FinAI is an intelligent financial management platform that combines cutting-edge
 
 Built with modern technologies including Together.ai, Snowflake, and Streamlit, FinAI transforms personal finance management through automation and AI-driven insights.
 
+---
+## 📖 Usage Guide
+
+### Receipt Processing
+
+#### Single Receipt
+1. Navigate to "Upload Receipt" tab
+2. Upload a receipt file (PDF, image, or text)
+3. Or paste receipt text directly
+4. Click "Process Receipt"
+5. Review extracted data and save to database
+
+#### Bulk Processing
+1. Upload multiple receipt files
+2. Click "Process Multiple Receipts"
+3. Review summary table
+4. Save all transactions or edit individually
+
+### Income Management
+1. Go to "Income Management" tab
+2. Fill in income details:
+   - Amount
+   - Source
+   - Payment method
+   - Category
+   - Date received
+3. Add tags and description
+4. Click "Record Income"
+
+### Financial Reports
+1. Navigate to "Financial Reports" tab
+2. Select time period (Week, Month, Quarter, Year)
+3. View comprehensive analytics:
+   - Income vs Expenses
+   - Category breakdowns
+   - Trend analysis
+   - KPI metrics
+
+### Tax & Compliance
+1. Go to "Tax & Compliance" tab
+2. View tax summary and deductible expenses
+3. Ask compliance questions in the chat interface
+4. Get AI-powered tax advice
+
+### Investment Planning
+1. Navigate to "Investment Planning" tab
+2. Enter stock symbol for analysis
+3. View comprehensive market analysis
+4. Get investment recommendations
+
+### Savings & Investing
+1. Go to "Savings & Investing" tab
+2. Set financial goals
+3. Choose risk profile
+4. Get AI-generated investment advice
+5. View savings projections
+---
+
 ## ✨ Key Features
 
 ### 🔍 Smart Receipt Processing
@@ -239,62 +297,7 @@ SNOWFLAKE_ACCOUNT = "your-account"
 SNOWFLAKE_WAREHOUSE = "FINAI_WH"
 SNOWFLAKE_DATABASE = "FINAI_DB"
 SNOWFLAKE_SCHEMA = "FINAI_SCHEMA"
-
-## 📖 Usage Guide
-
-### Receipt Processing
-
-#### Single Receipt
-1. Navigate to "Upload Receipt" tab
-2. Upload a receipt file (PDF, image, or text)
-3. Or paste receipt text directly
-4. Click "Process Receipt"
-5. Review extracted data and save to database
-
-#### Bulk Processing
-1. Upload multiple receipt files
-2. Click "Process Multiple Receipts"
-3. Review summary table
-4. Save all transactions or edit individually
-
-### Income Management
-1. Go to "Income Management" tab
-2. Fill in income details:
-   - Amount
-   - Source
-   - Payment method
-   - Category
-   - Date received
-3. Add tags and description
-4. Click "Record Income"
-
-### Financial Reports
-1. Navigate to "Financial Reports" tab
-2. Select time period (Week, Month, Quarter, Year)
-3. View comprehensive analytics:
-   - Income vs Expenses
-   - Category breakdowns
-   - Trend analysis
-   - KPI metrics
-
-### Tax & Compliance
-1. Go to "Tax & Compliance" tab
-2. View tax summary and deductible expenses
-3. Ask compliance questions in the chat interface
-4. Get AI-powered tax advice
-
-### Investment Planning
-1. Navigate to "Investment Planning" tab
-2. Enter stock symbol for analysis
-3. View comprehensive market analysis
-4. Get investment recommendations
-
-### Savings & Investing
-1. Go to "Savings & Investing" tab
-2. Set financial goals
-3. Choose risk profile
-4. Get AI-generated investment advice
-5. View savings projections
+```
 
 ## 🔧 Troubleshooting
 

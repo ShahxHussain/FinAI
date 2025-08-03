@@ -137,7 +137,7 @@ class ComplianceChatInterface:
 
 def tax_optimization_tab():
     """
-    Main entry point for the Tax Optimization & Compliance dashboard tab.
+    Main entry point for the Tax Optimizer dashboard tab.
     
     This function:
     - Displays important legal disclaimers
@@ -154,9 +154,9 @@ def tax_optimization_tab():
         
     Side Effects:
         - Modifies Streamlit session state for chat history
-        - Makes API calls to ASI for compliance advice
+        - Makes API calls to Together.ai for compliance advice
     """
-    st.header("🧾 Tax Optimization & Compliance")
+    st.header("🧾 Tax Optimizer")
     
     # Important global notice
     st.warning("""
@@ -173,7 +173,7 @@ def tax_optimization_tab():
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.subheader("Tax Insights & Recommendations")
+        st.subheader("Tax Optimization Insights")
         
         # Get financial data for the year
         report = TransactionManager.get_combined_financial_report('year')
@@ -183,7 +183,7 @@ def tax_optimization_tab():
         TaxOptimizationDashboard.display_tax_deductible_expenses(report)
     
     with col2:
-        st.subheader("Compliance Assistant")
+        st.subheader("Tax Compliance Assistant")
         
         # Initialize and display chat interface
         chat_interface = ComplianceChatInterface()

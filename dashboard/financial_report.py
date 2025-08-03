@@ -18,9 +18,11 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
         }
         .positive {
             color: #28a745;
+            font-weight: 600;
         }
         .negative {
             color: #dc3545;
+            font-weight: 600;
         }
         .header {
             font-size: 1.5rem;
@@ -33,26 +35,29 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
             margin-bottom: 10px;
         }
         .kpi-card {
-            background-color: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             border-left: 4px solid #4e73df;
+            border: 1px solid #e9ecef;
         }
         .kpi-title {
             font-size: 1rem;
-            color: #5a5c69;
+            color: white;
             margin-bottom: 5px;
+            font-weight: 600;
         }
         .kpi-value {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #4e73df;
+            color: #2c3e50;
         }
         .kpi-change {
             font-size: 0.9rem;
             font-weight: 400;
+            color: #6c757d;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -88,8 +93,8 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
             return 0
         return ((current - previous) / previous) * 100
 
-    # KPI Metrics
-    st.markdown("## Key Performance Indicators")
+    # Financial Overview Section
+    st.markdown("## 📊 Financial Overview")
     kpi1, kpi2, kpi3, kpi4 = st.columns(4)
 
     with kpi1:
@@ -101,7 +106,7 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
         
         st.markdown(f"""
         <div class="kpi-card">
-            <div class="kpi-title">Total Income</div>
+            <div class="kpi-title">Total Revenue</div>
             <div class="kpi-value">${current_income:,.2f}</div>
             <div class="kpi-change {change_color}">
                 {change_icon} {abs(change):.1f}% vs previous period
@@ -118,7 +123,7 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
         
         st.markdown(f"""
         <div class="kpi-card">
-            <div class="kpi-title">Total Expenses</div>
+            <div class="kpi-title">Total Expenditures</div>
             <div class="kpi-value">${current_expenses:,.2f}</div>
             <div class="kpi-change {change_color}">
                 {change_icon} {abs(change):.1f}% vs previous period
@@ -152,7 +157,7 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
         
         st.markdown(f"""
         <div class="kpi-card">
-            <div class="kpi-title">Savings Rate</div>
+            <div class="kpi-title">Wealth Accumulation Rate</div>
             <div class="kpi-value {'positive' if current_savings >= 0 else 'negative'}">{current_savings:.1f}%</div>
             <div class="kpi-change {change_color}">
                 {change_icon} {abs(change):.1f}% vs previous period
@@ -174,7 +179,7 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
             
             st.markdown(f"""
             <div class="kpi-card">
-                <div class="kpi-title">Expense/Income Ratio</div>
+                <div class="kpi-title">Expense/Revenue Ratio</div>
                 <div class="kpi-value">{ratio:.1f}%</div>
                 <div class="kpi-change {change_color}">
                     {change_icon} {abs(change):.1f}% vs previous period
@@ -197,7 +202,7 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
             
             st.markdown(f"""
             <div class="kpi-card">
-                <div class="kpi-title">Largest Expense Category</div>
+                <div class="kpi-title">Primary Expense Category</div>
                 <div class="kpi-value">{largest_cat[0]}</div>
                 <div class="kpi-change">${largest_cat[1]:,.2f}</div>
             </div>
@@ -221,7 +226,7 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
             
             st.markdown(f"""
             <div class="kpi-card">
-                <div class="kpi-title">Top Income Source</div>
+                <div class="kpi-title">Primary Revenue Source</div>
                 <div class="kpi-value">{top_source[0]}</div>
                 <div class="kpi-change {change_color}">
                     {change_icon} {abs(change):.1f}% vs previous period
@@ -254,7 +259,7 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
             
             st.markdown(f"""
             <div class="kpi-card">
-                <div class="kpi-title">Avg Daily Spend</div>
+                <div class="kpi-title">Daily Expenditure Average</div>
                 <div class="kpi-value">${daily_spend:,.2f}</div>
                 <div class="kpi-change {change_color}">
                     {change_icon} {abs(change):.1f}% vs previous period
@@ -264,13 +269,80 @@ def generate_financial_dashboard(time_period="month", start_date=None, end_date=
         else:
             st.markdown("""
             <div class="kpi-card">
-                <div class="kpi-title">Avg Daily Spend</div>
+                <div class="kpi-title">Daily Expenditure Average</div>
                 <div class="kpi-value">N/A</div>
             </div>
             """, unsafe_allow_html=True)
 
+    # Cash Flow Composition Section
+    st.markdown("## 💰 Cash Flow Composition")
+    
+    # Income Sources Breakdown
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.subheader("Revenue Sources")
+        if current_report["income"]["top_sources"]:
+            # Create pie chart for income sources
+            income_sources = current_report["income"]["top_sources"]
+            fig = px.pie(
+                values=list(income_sources.values()),
+                names=list(income_sources.keys()),
+                title="Revenue Distribution by Source",
+                color_discrete_sequence=px.colors.qualitative.Set3
+            )
+            fig.update_layout(height=400)
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.info("No revenue data available for this period")
+    
+    with col2:
+        st.subheader("Revenue Summary")
+        if current_report["income"]["top_sources"]:
+            for source, amount in current_report["income"]["top_sources"].items():
+                percentage = (amount / current_report["income"]["total"]) * 100
+                st.metric(
+                    label=source,
+                    value=f"${amount:,.2f}",
+                    delta=f"{percentage:.1f}% of total"
+                )
+        else:
+            st.info("No revenue sources to display")
+
+    # Expense Categories Breakdown
+    col3, col4 = st.columns([2, 1])
+    
+    with col3:
+        st.subheader("Expense Categories")
+        if current_report["expenses"]["category_breakdown"]:
+            # Create pie chart for expense categories
+            expense_categories = current_report["expenses"]["category_breakdown"]
+            fig = px.pie(
+                values=list(expense_categories.values()),
+                names=list(expense_categories.keys()),
+                title="Expense Distribution by Category",
+                color_discrete_sequence=px.colors.qualitative.Pastel
+            )
+            fig.update_layout(height=400)
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.info("No expense data available for this period")
+    
+    with col4:
+        st.subheader("Expense Summary")
+        if current_report["expenses"]["category_breakdown"]:
+            for category, amount in current_report["expenses"]["category_breakdown"].items():
+                percentage = (amount / current_report["expenses"]["total"]) * 100 if current_report["expenses"]["total"] > 0 else 0
+                st.metric(
+                    label=category,
+                    value=f"${amount:,.2f}",
+                    delta=f"{percentage:.1f}% of total"
+                )
+        else:
+            st.info("No expense categories to display")
+
     # Financial Health Indicators
-    st.markdown("## Financial Health Indicators")
+    st.markdown("## 🏥 Financial Health Indicators")
     health1, health2, health3 = st.columns(3)
 
     with health1:
