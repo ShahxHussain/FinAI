@@ -677,7 +677,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Made with ❤️ by the FinAI Team[ShahxHussain(https://www.linkedin.com/in/shahxhussain/)]**
+**Made with ❤️ by the FinAI Team [ShahxHussain(https://www.linkedin.com/in/shahxhussain/)]**
 
 [![GitHub stars](https://img.shields.io/github/stars/shahxhussain/finai?style=social)](https://github.com/shahxhussain/finai)
 [![GitHub forks](https://img.shields.io/github/forks/shahxhussain/finai?style=social)](https://github.com/shahxhussain/finai)
