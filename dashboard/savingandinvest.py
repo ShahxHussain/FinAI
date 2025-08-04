@@ -143,7 +143,8 @@ def savings_and_investing_tab():
                     st.plotly_chart(fig, use_container_width=True)
                     
                     # Get AI advice
-                    advice = ASIFinancialAdvisor.get_advice(
+                    advisor = TogetherFinancialAdvisor()
+                    advice = advisor.get_advice(
                         f"Suggest 3 ways to achieve a {goal_name} goal of ${goal_amount} "
                         f"in {years} years with ${suggested:,.2f} monthly contributions "
                         f"and {risk_profile} risk tolerance."
@@ -208,7 +209,8 @@ def savings_and_investing_tab():
         # AI Financial Health Assessment
         if st.button("Get Financial Health Checkup"):
             with st.spinner("Analyzing your financial situation..."):
-                analysis = ASIFinancialAdvisor.get_advice(
+                advisor = TogetherFinancialAdvisor()
+                analysis = advisor.get_advice(
                     f"Analyze this financial profile and provide specific recommendations:\n"
                     f"Income: ${snapshot['monthly_income']:,.2f}/month\n"
                     f"Expenses: ${snapshot['monthly_expenses']:,.2f}/month\n"
