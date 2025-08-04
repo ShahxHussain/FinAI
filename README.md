@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![FinAI Logo](data/logo.jpeg)
+![FinAI Logo](https://github.com/ShahxHussain/FinAI/blob/main/sample_receipts_data/FinAI_Logo.jpeg)
 
 **Intelligent Financial Management Platform**
 
