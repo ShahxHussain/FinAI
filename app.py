@@ -185,8 +185,8 @@ st.markdown('<div class="main-header"><h1>🚀 FinAI - Your AI-Powered Financial
 
 # Tab interface with updated names and styling
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
-    "📄 Smart Document Scanner", 
-    "💰 Revenue Tracker",
+    "📄 Smart Document Scanner | Expenses", 
+    "💰 Revenue Tracker | Income",
     "📊 Transaction History", 
     "📈 Financial Analytics", 
     "🧾 Tax Optimizer", 

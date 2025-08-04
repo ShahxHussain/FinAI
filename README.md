@@ -21,6 +21,7 @@
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
+- [Project Structure](#-project-structure)
 - [Key Features](#-key-features)
 - [Technology Stack](#-technology-stack)
 - [How Can You Use This & Where?](#-how-can-you-use-this--where)
@@ -47,8 +48,47 @@ FinAI is an intelligent financial management platform that combines cutting-edge
 - **Robust date parsing** supporting various international date formats
 - **Bulk processing capabilities** for handling multiple documents efficiently
 
-Built with modern technologies including Together.ai, Snowflake, and Streamlit, FinAI transforms personal finance management through automation and AI-driven insights. The platform is designed to handle real-world scenarios with robust error handling, multiple date format support, and comprehensive form validation.
+Built with modern technologies including Together.ai `Llama3`, Snowflake, and Streamlit, FinAI transforms personal finance management through automation and AI-driven insights. The platform is designed to handle real-world scenarios with robust error handling, multiple date format support, and comprehensive form validation.
 
+---
+
+## 📁 Project Structure
+
+```
+FinAI/
+├── 📄 app.py                              # Main Streamlit application entry point
+├── 📋 requirements.txt                    # Python dependencies and package versions
+├── 📖 README.md                           # Project documentation and setup guide
+├── 🔧 upgrade_all.py                      # Script to upgrade all Python packages
+├── 🔌 db_connection_verification.py       # Snowflake database connection test script
+│
+├── 📊 modules/                            # Application modules and UI components
+│   ├── 📈 financial_report.py            # Financial analytics and reporting dashboard
+│   ├── 🧾 taxandcomp.py                  # Tax optimization and compliance interface
+│   ├── 🎯 savingandinvest.py             # Savings planning and investment advisor
+│   └── 📈 detail_financialinvestment.py  # Market intelligence and stock analysis
+│
+├── 🛠️ utils/                             # Core utility modules and business logic
+│   ├── __init__.py                       # Python package initialization
+│   ├── 🤖 together_client.py             # Together.ai API client for AI operations
+│   ├── ❄️ snowflake_conn.py              # Snowflake database connection and CRUD operations
+│   ├── 🔧 snowflake_helpers.py           # Database helper functions and transaction management
+│   └── 💰 income_manager.py              # Income tracking and management utilities
+│
+├── 📋 Diagrams/                          # System architecture and documentation
+│   ├── 🏗️ ARCHITECTURE_DIAGRAM.md        # System architecture and component relationships
+│   ├── 🔄 DATAFLOW_DIAGRAM.md            # Data flow and processing pipeline documentation
+│   └── 🛠️ TECHNOLOGY_STACK.md           # Technology stack and dependency documentation
+│
+├── 📄 sample_receipts_data/              # Sample data for testing and demonstration
+│   ├── 📄 10 items Receipts.txt          # Sample receipt with multiple line items
+│   ├── ☁️ Cloud Receipt.txt              # Sample cloud service receipt
+│   ├── 💼 Freelance Receipt.txt          # Sample freelance work receipt
+│   ├── 🏢 Office Receipt.txt             # Sample office expense receipt
+│   └── 🖼️ logo.jpeg                      # Application logo and branding assets
+│
+└── 🐍 venv/                              # Python virtual environment (generated)
+```
 ---
 ## 📖 Usage Guide
 
