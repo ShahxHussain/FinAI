@@ -62,7 +62,7 @@ FinAI/
 ├── 🔧 upgrade_all.py                      # Script to upgrade all Python packages
 ├── 🔌 db_connection_verification.py       # Snowflake database connection test script
 │
-├── 📊 modules/                            # Application modules and UI components
+├── 📊 features/                            # Application modules and UI components
 │   ├── 📈 financial_report.py            # Financial analytics and reporting dashboard
 │   ├── 🧾 taxandcomp.py                  # Tax optimization and compliance interface
 │   ├── 🎯 savingandinvest.py             # Savings planning and investment advisor
@@ -75,19 +75,13 @@ FinAI/
 │   ├── 🔧 snowflake_helpers.py           # Database helper functions and transaction management
 │   └── 💰 income_manager.py              # Income tracking and management utilities
 │
-├── 📋 Diagrams/                          # System architecture and documentation
-│   ├── 🏗️ ARCHITECTURE_DIAGRAM.md        # System architecture and component relationships
-│   ├── 🔄 DATAFLOW_DIAGRAM.md            # Data flow and processing pipeline documentation
-│   └── 🛠️ TECHNOLOGY_STACK.md           # Technology stack and dependency documentation
-│
 ├── 📄 sample_receipts_data/              # Sample data for testing and demonstration
 │   ├── 📄 10 items Receipts.txt          # Sample receipt with multiple line items
 │   ├── ☁️ Cloud Receipt.txt              # Sample cloud service receipt
 │   ├── 💼 Freelance Receipt.txt          # Sample freelance work receipt
 │   ├── 🏢 Office Receipt.txt             # Sample office expense receipt
 │   └── 🖼️ logo.jpeg                      # Application logo and branding assets
-│
-└── 🐍 venv/                              # Python virtual environment (generated)
+
 ```
 ---
 ## 📖 Usage Guide
